@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://c8nrl8n5k227c"]
+
+[ext_resource type="Script" path="res://pipe_pair.gd" id="1_sf5a2"]
+[ext_resource type="Texture2D" uid="uid://ccek3nqbujrn1" path="res://bg.png" id="2_d6ftl"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_2ws3q"]
+polygon = PackedVector2Array(-5.10964, -4.96667, -5.10964, 5.03333, 4.89674, 5.03333, 5.32255, -4.96667)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lc1c7"]
+size = Vector2(144, 597)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f7m41"]
+size = Vector2(103, 597)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_h5tpb"]
+polygon = PackedVector2Array(-4.21658, -4.8, 3.92908, -4.95, 5.17489, 4.95, -4.5999, 4.98333)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xq4bg"]
+
+[node name="PipePair" type="Node2D"]
+script = ExtResource("1_sf5a2")
+
+[node name="TopPipe" type="Area2D" parent="."]
+position = Vector2(0, -400)
+
+[node name="Sprite2D" type="Sprite2D" parent="TopPipe"]
+scale = Vector2(14.091, 60)
+texture = ExtResource("2_d6ftl")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="TopPipe/Sprite2D"]
+occluder = SubResource("OccluderPolygon2D_2ws3q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopPipe"]
+position = Vector2(1, -0.5)
+shape = SubResource("RectangleShape2D_lc1c7")
+
+[node name="BottomPipe" type="Area2D" parent="."]
+position = Vector2(0, 400)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomPipe"]
+position = Vector2(-2.5, 0.5)
+shape = SubResource("RectangleShape2D_f7m41")
+
+[node name="Sprite2D" type="Sprite2D" parent="BottomPipe"]
+scale = Vector2(10.435, 60)
+texture = ExtResource("2_d6ftl")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="BottomPipe/Sprite2D"]
+occluder = SubResource("OccluderPolygon2D_h5tpb")
+
+[node name="Scored" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Scored"]
+shape = SubResource("RectangleShape2D_xq4bg")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="body_entered" from="TopPipe" to="." method="_on_body_entered"]
+[connection signal="body_entered" from="BottomPipe" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="Scored" to="." method="_on_point_scored"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

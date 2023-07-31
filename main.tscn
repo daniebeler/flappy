@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://coxk6bmbhqtwl"]
+
+[ext_resource type="PackedScene" uid="uid://q7kiq66nk56t" path="res://player.tscn" id="1_7bfay"]
+[ext_resource type="PackedScene" uid="uid://do0w046n8peiy" path="res://pipe_spawner.tscn" id="2_h2emm"]
+[ext_resource type="Texture2D" uid="uid://ccek3nqbujrn1" path="res://bg.png" id="3_rc2uk"]
+
+[node name="main" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("1_7bfay")]
+
+[node name="PipeSpawner" parent="." instance=ExtResource("2_h2emm")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.219608, 0.2, 1, 1)
+z_index = -5
+scale = Vector2(200, 200)
+texture = ExtResource("3_rc2uk")
